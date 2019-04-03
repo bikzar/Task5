@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    
+    <Properties>
+        <Property name="basePath"> /home/sergey/log/ </Property>
+    </Properties>
+    
+    <Appenders>
+    
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="- %msg%n" />
+        </Console>
+        
+         <RollingFile name = "fileLogger" fileName = "${basePath}/app-info.log" filePattern = "${basePath}/app-info-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+        
+        <RollingFile name = "Platform_loger" fileName = "${basePath}/Platform_Logger.log" filePattern = "${basePath}/Platform_Logger-%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+        
+    </Appenders>
+    
+    <Loggers>
+    
+    	<Logger name="Platform Logger" level="debug" additivity="false">
+    		<!--<AppenderRef ref="Platform_loger" />-->
+    		<AppenderRef ref="console" />
+    	</Logger>
+    
+        <Root level="debug" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="fileLogger" />
+        </Root>
+        
+    </Loggers>
+    
+</Configuration>
